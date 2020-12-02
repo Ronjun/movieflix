@@ -2,33 +2,52 @@ package com.devsuperior.movieflix.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name= "tb_genre")
-public class Genre implements Serializable{
+@Table(name= "tb_user")
+public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	
-	@OneToMany(mappedBy = "genre")
-	private List<Movie> movies = new ArrayList<>();
+	@Column(unique = true)
+	private String email;
+	private String password;
 	
-	public Genre() {}
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "tb_user_role",
+			joinColumns = @JoinColumn(name = "user_id"),
+			inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles = new HashSet<>();
+	
+	@OneToMany(mappedBy = "user")
+	private List<Review> reviews = new ArrayList<>();
+	
+	public User() {}
 
-	public Genre(Long id, String name) {
+	public User(Long id, String name, String email, String password) {
 		this.id = id;
 		this.name = name;
+		this.email = email;
+		this.password = password;
 	}
 
 	public Long getId() {
@@ -47,8 +66,28 @@ public class Genre implements Serializable{
 		this.name = name;
 	}
 
-	public List<Movie> getMovies() {
-		return movies;
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public List<Review> getReviews() {
+		return reviews;
 	}
 
 	@Override
@@ -67,7 +106,7 @@ public class Genre implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Genre other = (Genre) obj;
+		User other = (User) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -75,5 +114,5 @@ public class Genre implements Serializable{
 			return false;
 		return true;
 	}
-	
+		
 }
