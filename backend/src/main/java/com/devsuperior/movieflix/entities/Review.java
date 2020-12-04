@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_review")
-public class Review implements Serializable{
+public class Review implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -27,13 +27,13 @@ public class Review implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "user_review")
 	private User user;
-	
-	public Review() {}
 
-	public Review(Long id, String text, Movie movie, User user) {
+	public Review() {
+	}
+
+	public Review(Long id, String text, User user) {
 		this.id = id;
 		this.text = text;
-		this.movie = movie;
 		this.user = user;
 	}
 
@@ -92,6 +92,6 @@ public class Review implements Serializable{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}	
-	
+	}
+
 }
