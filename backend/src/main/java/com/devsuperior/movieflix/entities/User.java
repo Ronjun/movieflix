@@ -43,7 +43,7 @@ public class User implements UserDetails, Serializable{
 			joinColumns = @JoinColumn(name = "user_id"),
 			inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
-	
+
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 	private List<Review> reviews = new ArrayList<>();
 	
@@ -151,5 +151,12 @@ public class User implements UserDetails, Serializable{
 		return true;
 	}
 	
-		
+	public boolean hasRole(String roleName) {
+		for(Role role : roles) {
+			if(role.getAuthority().equals(roleName)) {
+				return true;
+			}
+		}
+		return false;
+	}	
 }

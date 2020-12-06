@@ -2,22 +2,30 @@ package com.devsuperior.movieflix.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
+
 import com.devsuperior.movieflix.entities.Movie;
 import com.devsuperior.movieflix.entities.Review;
 import com.devsuperior.movieflix.entities.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 public class ReviewDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
+	
+	@NotBlank(message = "campo obrigatório")
 	private String text;
 	private Long movieId;
 	private String userName;
 	
 	@JsonIgnore
 	private Movie movie;
-	@JsonIgnore
+
+	@JsonIgnoreProperties({"password", "reviews", "roles" ,"enabled",
+        "username", "authorities","accountNonExpired","credentialsNonExpired",
+        "accountNonLocked"})
 	private User user;
 	
 	public ReviewDTO() {}
@@ -36,8 +44,8 @@ public class ReviewDTO implements Serializable{
 		text = entity.getText();
 		movie = entity.getMovie();
 		user = entity.getUser();
-		userName = entity.getUser().getName();
 		movieId = entity.getMovie().getId();
+		userName = user.getName();
 	}
 
 	public Long getId() {
@@ -60,8 +68,8 @@ public class ReviewDTO implements Serializable{
 		return movieId;
 	}
 
-	public void setMovieId(Long movie) {
-		this.movieId = movie;
+	public void setMovieId(Long movieId) {
+		this.movieId = movieId;
 	}
 
 	public String getUserName() {
