@@ -19,9 +19,9 @@
 </h4>
 
 ## Instalação
-### Pré-Requisitos
+#### Pré-Requisitos
 Para executar este projeto é necessário instalar o [Git](https://git-scm.com/), [java 11](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html).
-### Rodar localmente
+#### Rodar localmente
 Para rodar localmente primeiro abra o terminal do git e clone o projeto com:
 ` git clone https://github.com/Ronjun/movieflix `
 Feito isto basta importar o projeto no seu [STS](https://spring.io/tools) e executar normalmente pelo spring dashboard.
