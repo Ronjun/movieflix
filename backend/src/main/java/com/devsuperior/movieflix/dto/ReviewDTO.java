@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.validation.constraints.NotBlank;
 
-import com.devsuperior.movieflix.entities.Movie;
 import com.devsuperior.movieflix.entities.Review;
 import com.devsuperior.movieflix.entities.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -21,16 +20,13 @@ public class ReviewDTO implements Serializable{
 	private String userName;
 	
 	@JsonIgnore
-	private Movie movie;
+	private MovieDTO movie;
 
-	@JsonIgnoreProperties({"password", "reviews", "roles" ,"enabled",
-        "username", "authorities","accountNonExpired","credentialsNonExpired",
-        "accountNonLocked"})
-	private User user;
+	private UserDTO user;
 	
 	public ReviewDTO() {}
 
-	public ReviewDTO(Long id, String text, Movie movie, User user) {
+	public ReviewDTO(Long id, String text, MovieDTO movie, UserDTO user) {
 		this.id = id;
 		this.text = text;
 		this.movie = movie;
@@ -42,8 +38,8 @@ public class ReviewDTO implements Serializable{
 	public ReviewDTO(Review entity) {
 		id = entity.getId();
 		text = entity.getText();
-		movie = entity.getMovie();
-		user = entity.getUser();
+		movie = new MovieDTO(entity.getMovie());
+		user = new UserDTO(entity.getUser());
 		movieId = entity.getMovie().getId();
 		userName = user.getName();
 	}
@@ -80,19 +76,19 @@ public class ReviewDTO implements Serializable{
 		this.userName = userName;
 	}
 
-	public Movie getMovie() {
+	public MovieDTO getMovie() {
 		return movie;
 	}
 
-	public void setMovie(Movie movie) {
+	public void setMovie(MovieDTO movie) {
 		this.movie = movie;
 	}
 
-	public void setUser(User user) {
+	public void setUser(UserDTO user) {
 		this.user = user;
 	}
 
-	public User getUser() {
+	public UserDTO getUser() {
 		return user;
 	}
 	

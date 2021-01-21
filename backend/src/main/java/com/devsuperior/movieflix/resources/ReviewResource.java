@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.devsuperior.movieflix.dto.ReviewDTO;
+import com.devsuperior.movieflix.dto.UserDTO;
 import com.devsuperior.movieflix.services.AuthService;
 import com.devsuperior.movieflix.services.ReviewService;
 
@@ -30,7 +31,7 @@ public class ReviewResource {
 	@PostMapping
 	@PreAuthorize("hasRole('MEMBER')")
 	public ResponseEntity<ReviewDTO> insert (@Valid @RequestBody ReviewDTO dto){
-		dto.setUser(authService.authenticated());
+		dto.setUser(new UserDTO(authService.authenticated()));
 		dto.setText(dto.getText().trim());
 		dto = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
