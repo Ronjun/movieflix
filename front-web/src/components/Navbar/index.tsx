@@ -1,4 +1,4 @@
-import './styles.css';
+import './styles.scss';
 import { ReactComponent as Logo } from '../../assets/popcorn.svg';
 
 export default function Navbar() {
