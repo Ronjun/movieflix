@@ -7,8 +7,10 @@
 }
 
 html, body {
+  background-color: #525252;
   margin: 0;
   padding:0;
+  
 }
 
 body{

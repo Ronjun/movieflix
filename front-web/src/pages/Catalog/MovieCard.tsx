@@ -2,8 +2,9 @@ import "./styles.scss";
 import { ReactComponent as Image } from "./image 2.svg";
 
 export default function MovieCard() {
+
   return (
-    <div className="card-container">
+    <div className="card-container" >
       <Image className="card-image" />
       <div className='pl-3 pt-2'>
         <h3 className="card-title"> O retorno do rei</h3>
