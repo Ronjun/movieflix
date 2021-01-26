@@ -97,13 +97,13 @@ export default function LoginCard() {
           </div>
           <div className="ml-5 mt-3">
             <p className="helper-text">
-              Não tem uma conta?<h6 className='d-inline'> CADASTRE-SE </h6>
+              Não tem uma conta?<b className='d-inline'> CADASTRE-SE </b>
             </p>
             <p className="helper-text">
               Ou fazer login como {''}
-              <h6 className="d-inline" onClick={onClick}>
+              <b className="d-inline" onClick={onClick}>
                 VISITANTE
-              </h6>
+              </b>
             </p>
           </div>
         </div>

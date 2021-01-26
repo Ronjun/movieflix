@@ -1,5 +1,6 @@
 import axios, { Method } from "axios";
 import qs from 'qs';
+import { getSessionData } from "./auth";
 
 export const CLIENT_ID = 'movieflix';
 export const CLIENT_SECRET = 'movieflix123';
@@ -28,6 +29,16 @@ export function makeRequest({method = "GET", url, data, params, headers,}: Reque
     headers
   })
 }
+
+export const makePrivateRequest = ({method = "GET", url,  data,  params}: RequestParams) => {
+  const sessionData = getSessionData();
+
+  const headers = {
+    'Authorization': `Bearer ${sessionData.access_token}`
+  }
+
+  return makeRequest({method, url, data, params, headers});
+};
 
 export function makeLogin(loginData: LoginData){
   const token = `${CLIENT_ID}:${CLIENT_SECRET}`;

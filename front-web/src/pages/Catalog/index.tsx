@@ -1,7 +1,16 @@
+import { useEffect, useState } from "react";
+import { makePrivateRequest } from "../../Api/request";
+import { MoviesResponse } from "../../types";
 import MovieCard from "./MovieCard";
 import "./styles.scss";
 
 export default function Catalog() {
+  const [movies, setMovies] = useState<MoviesResponse>();
+
+  useEffect(()=>{
+    makePrivateRequest({url: '/movies'}).then(response => setMovies(response.data));
+  },[])
+
   return (
     <div className="catalog-container">
       <div className="searchbar-container">
@@ -14,15 +23,11 @@ export default function Catalog() {
       </div>
       <div className='catalog-grid'>
         <div className="catalog-card-container d-grid">
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
+          {
+            movies?.content.map(movie =>(
+              <MovieCard movie={movie} />
+            ))
+          }
         </div>
       </div>
       <div className="catalog-navigation-container">

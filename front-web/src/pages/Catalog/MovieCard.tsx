@@ -1,15 +1,19 @@
 import "./styles.scss";
-import { ReactComponent as Image } from "./image 2.svg";
+import { Movie } from "../../types";
 
-export default function MovieCard() {
+type Props = {
+  movie: Movie;
+}
+
+export default function MovieCard({movie}: Props) {
 
   return (
     <div className="card-container" >
-      <Image className="card-image" />
+      <img src={movie.imgUrl} alt={movie.title} className='card-image'/>
       <div className='pl-3 pt-2'>
-        <h3 className="card-title"> O retorno do rei</h3>
-        <h4 className="card-year">2013</h4>
-        <p className="card-subtitle">o olho do inimigo está se movendo</p>
+        <h3 className="card-title">{movie.title}</h3>
+        <h4 className="card-year">{movie.year}</h4>
+        <p className="card-subtitle">{movie.subtitle}</p>
       </div>
     </div>
   );
