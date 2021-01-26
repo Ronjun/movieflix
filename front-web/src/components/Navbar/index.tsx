@@ -7,7 +7,7 @@ export default function Navbar() {
   const history = useHistory();
 
   function onClick(event: React.MouseEvent<HTMLHeadingElement, MouseEvent>){
-    history.push('/');
+    history.push('/login');
   }
 
   return(

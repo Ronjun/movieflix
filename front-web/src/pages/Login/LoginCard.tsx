@@ -3,7 +3,8 @@ import { useForm } from "react-hook-form";
 import { ReactComponent as Arrow } from "./arrow.svg";
 import { makeLogin } from "../../Api/request";
 import { useHistory } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { saveSessionData } from "../../Api/auth";
+import { useState } from "react";
 
 type FormState = {
   username: string;
@@ -19,6 +20,7 @@ export default function LoginCard() {
     makeLogin(data)
       .then((response) => {
         setHasError(false);
+        saveSessionData(response.data);
         history.push("/catalog");
       })
 
@@ -27,17 +29,16 @@ export default function LoginCard() {
       });
   }
 
-  function onClick(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
-    try {
-      makeLogin({ username: "bob@gmail.com", password: "123456" }).then(
-        (response) => {
-          setHasError(false);
-          history.push("/catalog");
-        }
-      );
-    } catch (error) {
-      setHasError(true);
-    }
+  function onClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    makeLogin({ username: "bob@gmail.com", password: "123456" })
+      .then((response) => {
+        setHasError(false);
+        saveSessionData(response.data);
+        history.push("/catalog");
+      })
+      .catch(() => {
+        setHasError(true);
+      });
   }
 
   return (
@@ -96,14 +97,13 @@ export default function LoginCard() {
           </div>
           <div className="ml-5 mt-3">
             <p className="helper-text">
-              Não tem uma conta?<a href="register"> CADASTRE-SE </a>
+              Não tem uma conta?<h6 className='d-inline'> CADASTRE-SE </h6>
             </p>
             <p className="helper-text">
-              Ou fazer login como{" "}
-              <a href="catalog" onClick={onClick}>
-                {" "}
-                VISITANTE{" "}
-              </a>
+              Ou fazer login como {''}
+              <h6 className="d-inline" onClick={onClick}>
+                VISITANTE
+              </h6>
             </p>
           </div>
         </div>

@@ -1,16 +1,30 @@
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Catalog from './pages/Catalog';
-import Login from './pages/Login';
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import { isAuthenticated } from "./Api/auth";
+import Navbar from "./components/Navbar";
+import Catalog from "./pages/Catalog";
+import Login from "./pages/Login";
 
-export default function Routes(){
-  return(
+export default function Routes() {
+  return (
     <BrowserRouter>
       <Navbar />
       <Switch>
-        <Route path='/' exact component={Login} />
-        <Route path='/catalog' component={Catalog} />
+        <Redirect from="/" exact to="/login" />
+        <Route path="/login" component={Login} />
+        <Route
+          path="/catalog"
+          render={({ location }) => {
+            if (!isAuthenticated()) {
+              return (
+                <Redirect
+                  to={{ pathname: "/login", state: { from: location } }}
+                />
+              );
+            }
+            return <Catalog />
+          }}
+        />
       </Switch>
     </BrowserRouter>
-  )
+  );
 }
