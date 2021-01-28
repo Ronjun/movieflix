@@ -1,0 +1,31 @@
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination-number {
+  background-color: #6c6c6c;
+  display: flex;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+  margin-right: 9px;
+  margin-top: 30px;
+
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 25px;
+  text-align: center;
+  letter-spacing: -0.015em;
+
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.active {
+  background-color: #FFC700;
+}
