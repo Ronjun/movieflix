@@ -6,7 +6,7 @@ export type Movie = {
   imgUrl: string;
   synopsis: string;
   genre: Genre;
-  reviews: Review[];
+  reviews: UserReview[];
 };
 
 export type Genre = {
@@ -14,12 +14,12 @@ export type Genre = {
   name: string;
 };
 
-export type Review = {
+export type UserReview = {
   id: number;
   text: string;
   movieId: number;
   userName: string;
-  user: User;
+  user: User
 };
 
 export type User = {
