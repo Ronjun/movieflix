@@ -2,6 +2,7 @@ import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { isAuthenticated } from "./Api/auth";
 import Navbar from "./components/Navbar";
 import Catalog from "./pages/Catalog";
+import Details from "./pages/Details";
 import Login from "./pages/Login";
 
 export default function Routes() {
@@ -13,6 +14,7 @@ export default function Routes() {
         <Route path="/login" component={Login} />
         <Route
           path="/catalog"
+          exact
           render={({ location }) => {
             if (!isAuthenticated()) {
               return (
@@ -24,6 +26,7 @@ export default function Routes() {
             return <Catalog />
           }}
         />
+        <Route path="/catalog/:movieId" component={Details} />
       </Switch>
     </BrowserRouter>
   );

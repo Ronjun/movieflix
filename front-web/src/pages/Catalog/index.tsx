@@ -5,6 +5,7 @@ import { MoviesResponse } from "../../types";
 import MovieCard from "./MovieCard";
 import "./styles.scss";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 export default function Catalog() {
   const [movies, setMovies] = useState<MoviesResponse>();
@@ -36,7 +37,7 @@ export default function Catalog() {
           className="searchbar-container"
           name="genre"
         >
-          <select className="select-container" name="genreId" ref={register} >
+          <select className="select-container" name="genreId" ref={register}>
             <option value="0">Todos os Gêneros</option>
             <option value="1">Ação</option>
             <option value="2">Drama</option>
@@ -49,7 +50,9 @@ export default function Catalog() {
       <div className="catalog-grid">
         <div className="catalog-card-container d-grid">
           {movies?.content.map((movie) => (
-            <MovieCard movie={movie} key={movie.id}/>
+            <Link to={`/catalog/${movie.id}`} key={movie.id}>
+              <MovieCard movie={movie} key={movie.id} />
+            </Link>
           ))}
         </div>
       </div>
