@@ -4,14 +4,21 @@ import Pagination from "../../components/Pagination";
 import { MoviesResponse } from "../../types";
 import MovieCard from "./MovieCard";
 import "./styles.scss";
-import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import Select from "react-select";
 
 export default function Catalog() {
   const [movies, setMovies] = useState<MoviesResponse>();
   const [activePage, setActivePage] = useState(0);
-  const { register, handleSubmit } = useForm();
   const [id, setId] = useState(0);
+
+  const options = [
+    { value: "0", label: "Todos os Gêneros" },
+    { value: "1", label: "Ação" },
+    { value: "2", label: "Drama" },
+    { value: "3", label: "Aventura" },
+    { value: "4", label: "Fantasia" },
+  ];
 
   useEffect(() => {
     const params = {
@@ -25,28 +32,48 @@ export default function Catalog() {
   }, [activePage, id]);
 
   function onSubmit(data: any) {
-    setId(data.genreId);
+    setId(data.value);
     setActivePage(0);
   }
 
   return (
     <div className="catalog-container">
-      <div>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="searchbar-container"
+      <div className="searchbar-container">
+        <Select
+          placeholder="Todos os Gêneros"
           name="genre"
-        >
-          <select className="select-container" name="genreId" ref={register}>
-            <option value="0">Todos os Gêneros</option>
-            <option value="1">Ação</option>
-            <option value="2">Drama</option>
-            <option value="3">Aventura</option>
-            <option value="4">Fantasia</option>
-          </select>
-          <button className="select-container">Filtrar</button>
-        </form>
+          className="select-container"
+          classNamePrefix="select-options"
+          options={options}
+          theme={(theme) => ({
+            ...theme,
+            borderRadius: 10,
+
+            colors: {
+              ...theme.colors,
+              primary25: "yellow",
+              primary: "orange",
+              neutral0: "#6c6c6c",
+              neutral90: "#fff",
+              neutral80: "#fff",
+              neutral70: "#fff",
+              neutral60: "#fff",
+              neutral50: "#fff",
+              neutral40: "#fff",
+              neutral30: "#fff",
+            },
+          })}
+          styles={{
+            control: base => ({
+              ...base,
+              height: 48,
+              width: 250,
+            })
+          }}
+          onChange={onSubmit}
+        />
       </div>
+
       <div className="catalog-grid">
         <div className="catalog-card-container d-grid">
           {movies?.content.map((movie) => (
