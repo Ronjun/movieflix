@@ -5,9 +5,7 @@ import java.io.Serializable;
 import javax.validation.constraints.NotBlank;
 
 import com.devsuperior.movieflix.entities.Review;
-import com.devsuperior.movieflix.entities.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 public class ReviewDTO implements Serializable{
 	private static final long serialVersionUID = 1L;

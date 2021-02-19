@@ -30,7 +30,7 @@ export default function Details() {
         <img src={movie?.imgUrl} alt={movie?.title} className="movie-image"/>
         <div className="movie-details-container">
           <h1 className="movie-title">{movie?.title}</h1>
-          <h2 className="movie-year">{movie?.id}</h2>
+          <h2 className="movie-year">{movie?.year}</h2>
           <h5 className="movie-subtitle">{movie?.subtitle}</h5>
           <div className="movie-description-container">
             <p className="movie-description">{movie?.synopsis}</p>
