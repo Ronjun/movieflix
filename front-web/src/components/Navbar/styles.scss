@@ -1,5 +1,5 @@
 .nav-container {
-  background-color:var(--primary-color);
+  background-color: var(--primary-color);
   display: flex;
   align-items: center;
   height: 70px;
@@ -21,4 +21,30 @@
   letter-spacing: -0.015em;
   cursor: pointer;
   margin-top: 10px;
+}
+
+.nav-logout {
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  border-radius: 10px;
+
+  height: 30px;
+  width: 100px;
+  margin-top: 12px;
+  margin-left: 80%;
+  margin-right: 60px;
+
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 19px;
+  text-align: center;
+  letter-spacing: -0.015em;
+
+  color: #000000;
+
+  text-transform: uppercase;
+  text-align: center;
+  padding-top: 4px;
+
+  cursor: pointer;
 }

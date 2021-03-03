@@ -64,11 +64,11 @@ export default function Catalog() {
             },
           })}
           styles={{
-            control: base => ({
+            control: (base) => ({
               ...base,
               height: 48,
               width: 250,
-            })
+            }),
           }}
           onChange={onSubmit}
         />
@@ -77,7 +77,11 @@ export default function Catalog() {
       <div className="catalog-grid">
         <div className="catalog-card-container d-grid">
           {movies?.content.map((movie) => (
-            <Link to={`/catalog/${movie.id}`} key={movie.id}>
+            <Link
+              to={`/catalog/${movie.id}`}
+              key={movie.id}
+              className="text-decoration-none"
+            >
               <MovieCard movie={movie} key={movie.id} />
             </Link>
           ))}

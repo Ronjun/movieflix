@@ -16,9 +16,9 @@ export default function Details() {
   const [movie, setMovie] = useState<Movie>();
 
   useEffect(() => {
-    makePrivateRequest({url:`/movies/${movieId}`})
-    .then((response) => setMovie(response.data));
-
+    makePrivateRequest({ url: `/movies/${movieId}` }).then((response) =>
+      setMovie(response.data)
+    );
   }, [movieId]);
 
   function onSubmit() {
@@ -27,7 +27,7 @@ export default function Details() {
   return (
     <div className="details-container">
       <div className="movie-details">
-        <img src={movie?.imgUrl} alt={movie?.title} className="movie-image"/>
+        <img src={movie?.imgUrl} alt={movie?.title} className="movie-image" />
         <div className="movie-details-container">
           <h1 className="movie-title">{movie?.title}</h1>
           <h2 className="movie-year">{movie?.year}</h2>

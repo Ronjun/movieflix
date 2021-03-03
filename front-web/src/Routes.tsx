@@ -11,7 +11,20 @@ export default function Routes() {
       <Navbar />
       <Switch>
         <Redirect from="/" exact to="/login" />
-        <Route path="/login" component={Login} />
+        <Route 
+          path="/login"
+          exact
+          render={({ location }) => {
+            if(isAuthenticated()) {
+              return(
+                <Redirect 
+                  to={{pathname: "/Catalog", state: { from: location }}}
+                />
+              );
+            }
+            return <Login />;
+          }}
+        />
         <Route
           path="/catalog"
           exact
@@ -23,7 +36,7 @@ export default function Routes() {
                 />
               );
             }
-            return <Catalog />
+            return <Catalog />;
           }}
         />
         <Route path="/catalog/:movieId" component={Details} />
