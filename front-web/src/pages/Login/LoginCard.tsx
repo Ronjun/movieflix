@@ -2,7 +2,7 @@ import "./styles.scss";
 import { useForm } from "react-hook-form";
 import { ReactComponent as Arrow } from "./arrow.svg";
 import { makeLogin } from "../../Api/request";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { saveSessionData } from "../../Api/auth";
 import { useState } from "react";
 
@@ -43,14 +43,14 @@ export default function LoginCard() {
 
   return (
     <div className="login-card-container">
-      <h1 className="login-card-title">Login</h1>
+      <h1 className="login-card-title mb-5">Login</h1>
       {hasError && (
-        <div className="alert alert-danger mt-5">
+        <div className="alert alert-danger mt-5 mr-5 ml-5">
           Usuário ou senha inválidos!
         </div>
       )}
       <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
-        <div className="mt-5">
+        <div>
           <input
             type="email"
             className={`form-control form-base ${
@@ -76,7 +76,7 @@ export default function LoginCard() {
           <input
             type="password"
             className={`form-control form-base ${
-              errors.username ? "is-invalid" : ""
+              errors.password ? "is-invalid" : ""
             }`}
             name="password"
             placeholder="Senha"
@@ -97,11 +97,11 @@ export default function LoginCard() {
           </div>
           <div className="ml-5 mt-3">
             <p className="helper-text">
-              Não tem uma conta?<b className='d-inline'> CADASTRE-SE </b>
+              Não tem uma conta?<Link to="/register"> CADASTRE-SE </Link>
             </p>
             <p className="helper-text">
               Ou fazer login como {''}
-              <b className="d-inline" onClick={onClick}>
+              <b onClick={onClick}>
                 VISITANTE
               </b>
             </p>

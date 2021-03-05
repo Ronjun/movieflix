@@ -4,21 +4,23 @@ import Navbar from "./components/Navbar";
 import Catalog from "./pages/Catalog";
 import Details from "./pages/Details";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 export default function Routes() {
   return (
     <BrowserRouter>
       <Navbar />
       <Switch>
+        <Route path="/register" component={Register} />
         <Redirect from="/" exact to="/login" />
-        <Route 
+        <Route
           path="/login"
           exact
           render={({ location }) => {
-            if(isAuthenticated()) {
-              return(
-                <Redirect 
-                  to={{pathname: "/Catalog", state: { from: location }}}
+            if (isAuthenticated()) {
+              return (
+                <Redirect
+                  to={{ pathname: "/Catalog", state: { from: location } }}
                 />
               );
             }
