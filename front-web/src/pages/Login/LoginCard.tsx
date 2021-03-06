@@ -19,8 +19,8 @@ export default function LoginCard() {
   const [hasError, setHasError] = useState(false);
   const [hidePassword, setHidePassword] = useState(true);
 
-  function onSubmit(data: FormState) {
-    makeLogin(data)
+  async function onSubmit(data: FormState) {
+    await makeLogin(data)
       .then((response) => {
         setHasError(false);
         saveSessionData(response.data);
