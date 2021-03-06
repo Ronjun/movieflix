@@ -5,6 +5,8 @@ import { makeLogin } from "../../Api/request";
 import { Link, useHistory } from "react-router-dom";
 import { saveSessionData } from "../../Api/auth";
 import { useState } from "react";
+import { ReactComponent as EyeOpened } from "../../assets/eyeOpened.svg";
+import { ReactComponent as EyeClosed } from "../../assets/eyeClosed.svg";
 
 type FormState = {
   username: string;
@@ -15,6 +17,7 @@ export default function LoginCard() {
   const { register, handleSubmit, errors } = useForm<FormState>();
   const history = useHistory();
   const [hasError, setHasError] = useState(false);
+  const [hidePassword, setHidePassword] = useState(true);
 
   function onSubmit(data: FormState) {
     makeLogin(data)
@@ -74,7 +77,7 @@ export default function LoginCard() {
         </div>
         <div className="mt-5">
           <input
-            type="password"
+            type={hidePassword ? "password" : "text"}
             className={`form-control form-base ${
               errors.password ? "is-invalid" : ""
             }`}
@@ -82,30 +85,39 @@ export default function LoginCard() {
             placeholder="Senha"
             ref={register({ required: "Campo obrigatório" })}
           />
+          {hidePassword ? (
+            <EyeClosed
+              onClick={() => setHidePassword(!hidePassword)}
+              className="eyes-icon"
+            />
+          ) : (
+            <EyeOpened
+              onClick={() => setHidePassword(!hidePassword)}
+              className="eyes-icon"
+            />
+          )}
           {errors.password && (
             <div className="invalid-feedback d-block">
               {errors.password.message}
             </div>
           )}
-          <div className="button-container">
-            <button className="button-text-container">
-              <h5 className="button-text">Logar</h5>
-            </button>
-            <div className="arrow-container">
-              <Arrow />
-            </div>
+        </div>
+        <div className="button-container">
+          <button className="button-text-container">
+            <h5 className="button-text">Logar</h5>
+          </button>
+          <div className="arrow-container">
+            <Arrow />
           </div>
-          <div className="ml-5 mt-3">
-            <p className="helper-text">
-              Não tem uma conta?<Link to="/register"> CADASTRE-SE </Link>
-            </p>
-            <p className="helper-text">
-              Ou fazer login como {''}
-              <b onClick={onClick}>
-                VISITANTE
-              </b>
-            </p>
-          </div>
+        </div>
+        <div className="ml-5 mt-3">
+          <p className="helper-text">
+            Não tem uma conta?<Link to="/register"> CADASTRE-SE </Link>
+          </p>
+          <p className="helper-text">
+            Ou fazer login como {""}
+            <b onClick={onClick}>VISITANTE</b>
+          </p>
         </div>
       </form>
     </div>

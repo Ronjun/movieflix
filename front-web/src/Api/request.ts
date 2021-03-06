@@ -2,8 +2,8 @@ import axios, { Method } from "axios";
 import qs from 'qs';
 import { getSessionData } from "./auth";
 
-export const CLIENT_ID = 'movieflix';
-export const CLIENT_SECRET = 'movieflix123';
+export const CLIENT_ID = process.env.REACT_APP_CLIENT_ID ?? 'dscatalog';
+export const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET ?? 'dscatalog123';
 
 type RequestParams = {
   method?: Method;
@@ -18,7 +18,7 @@ type LoginData={
   password: string;
 }
 
-const BASE_URL= 'http://localhost:8080'
+const BASE_URL = process.env.REACT_APP_BACKEND_URL ?? "http://localhost:8080";
 
 export function makeRequest({method = "GET", url, data, params, headers,}: RequestParams){
   return axios({
