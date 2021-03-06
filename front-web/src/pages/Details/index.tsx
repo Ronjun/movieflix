@@ -5,24 +5,42 @@ import { useEffect, useState } from "react";
 import { Movie } from "../../types";
 import { useParams } from "react-router-dom";
 import { makePrivateRequest } from "../../Api/request";
+import { getAccessTokenDecoded, isAllowedByRole } from "../../Api/auth";
+import { toast } from 'react-toastify';
 
 type ParamsType = {
   movieId: string;
 };
 
+type ReviewType = {
+  movieId: number;
+  text: string;
+}
+
 export default function Details() {
   const { movieId } = useParams<ParamsType>();
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm<ReviewType>();
   const [movie, setMovie] = useState<Movie>();
+  const [currentUser, setCurrentUser] = useState('');
+  const [newReview, setNewReview] = useState(false);
 
   useEffect(() => {
     makePrivateRequest({ url: `/movies/${movieId}` }).then((response) =>
       setMovie(response.data)
     );
-  }, [movieId]);
+    const currentUserData = getAccessTokenDecoded();
+    setCurrentUser(currentUserData.user_name);
+  }, [movieId, newReview]);
 
-  function onSubmit() {
-    console.log("enviado");
+  async function onSubmit(value: ReviewType) {
+    const data = {
+      movieId: movie?.id,
+      text: value.text,
+    }
+    await makePrivateRequest({method: 'POST', url:'/reviews', data})
+    setNewReview(!newReview);
+    reset();
+    toast.warn('Review salvo com sucesso!')
   }
   return (
     <div className="details-container">
@@ -37,17 +55,20 @@ export default function Details() {
           </div>
         </div>
       </div>
-      <div className="review-container">
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <textarea
-            className="input-container"
-            ref={register}
-            name="review"
-            placeholder="Deixe sua avaliação aqui"
-          />
-          <button className="save-button">SALVAR AVALIAÇÃO</button>
-        </form>
-      </div>
+      {currentUser &&
+        isAllowedByRole(['ROLE_MEMBER']) &&
+        (<div className="review-container">
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <textarea
+              className="input-container"
+              ref={register}
+              name="text"
+              placeholder="Deixe sua avaliação aqui"
+            />
+            <button className="save-button">SALVAR AVALIAÇÃO</button>
+          </form>
+        </div>)
+      }
       <div className="review-list-container">
         {movie?.reviews.map((review) => (
           <Review review={review} key={review.id} />

@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 import { makeRequest } from "../../Api/request";
 import "./styles.scss";
 
@@ -31,6 +32,7 @@ export default function RegisterCard() {
       ]
     }
     makeRequest({method: "POST", url: '/users', data })
+    toast.warn("Cadastro realizado!")
     history.replace("/login");
   }
 

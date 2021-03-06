@@ -16,3 +16,7 @@ html, body {
 body{
   font-family: 'Open Sans', sans-serif;
 }
+
+.Toastify__toast-container{
+  color: #000 !important;
+}
